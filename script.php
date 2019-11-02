@@ -1,4 +1,6 @@
 <?php
+   // Iniciando uma Sessão.
+   session_start();
 
     // Criar uma variável do tipo array (lista) de Categorias, para ficar dinâmico e facilitar a manutenção no futuro.
     $categorias = [];
@@ -20,25 +22,34 @@
     // Validação dos dados digitados
     if(empty($nome))
     {
-        echo 'O nome não pode ser vazio!';
+        // echo 'O nome não pode ser vazio!';
+        $_SESSION['mensagem-de-erro'] = 'O nome não pode ser vazio por favor preencha o novamente';
+        header("location: index.php");
         return;
     }
 
-    if (strlen($nome) < 3)
+    else if (strlen($nome) < 3)
     {
-        echo 'O nome deve conter mais de 3 caracteres!';
+        $_SESSION['mensagem-de-erro'] = 'O nome não pode ser < 3, por favor preencha o novamente';
+        header("location: index.php");
         return;
+
     }
 
-    if (strlen($nome) > 40)
+    else if (strlen($nome) > 40)
     {
-        echo 'O nome é muito extenso!';
+        $_SESSION['mensagem-de-erro'] = 'O nome não pode ser > 40 caracteres, favor preencha o novamente';
+        header("location: index.php");
         return;
+
     }
 
-    if(!is_numeric($idade))
+    else if(!is_numeric($idade))
     {
-        echo "Informe um nuúmero para idade!";
+        $_SESSION['mensagem-de-erro'] = 'A idade precisa ser preenchida';
+        header("location: index.php");
+        return;
+
     }
 
      
@@ -51,7 +62,9 @@
         {
             if ( $categorias[$i] == 'Infantil') 
             {                
-                echo 'O nadador '.$nome.' compete na categoria '.$categorias[$i];
+                $_SESSION['mensagem-de-sucesso'] = 'O nadador '.$nome.' compete na categoria '.$categorias[$i];
+                header("location: index.php");
+                return;
             }
         };
     }
@@ -61,7 +74,9 @@
         {
             if ( $categorias[$i] == 'Adolescente') 
             {                
-                echo 'O nadador '.$nome.' compete na categoria '.$categorias[$i];
+                $_SESSION['mensagem-de-sucesso'] = 'O nadador '.$nome.' compete na categoria '.$categorias[$i];
+                header("location: index.php");
+                return;
             }
         }
     }
@@ -71,7 +86,9 @@
         {
             if ( $categorias[$i] == 'Adulto') 
             {                
-                echo 'O nadador '.$nome.' compete na categoria '.$categorias[$i];
+                $_SESSION['mensagem-de-sucesso'] = 'O nadador '.$nome.' compete na categoria '.$categorias[$i];
+                header("location: index.php");
+                return;
             }
         }
     } 
